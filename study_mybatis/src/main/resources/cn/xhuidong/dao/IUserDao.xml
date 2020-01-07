@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.xhuidong.dao.IUserDao">
+
+    <resultMap id="userAccountMap" type="user">
+
+        <id property="id" column="id"></id>
+        <result property="address" column="username"></result>
+        <result property="birthday" column="birthday"></result>
+        <result property="sex" column="sex"></result>
+        <result property="address" column="address"></result>   
+        
+        <collection property="account" javaType="list" ofType="account">
+            <id property ="id" column ="id1"></id>
+            <result property = "id" column ="uid"></result>
+            <result property = "money" column ="money"></result>
+        </collection>
+    </resultMap>
+
+
+    <select id="findById" parameterType="java.lang.Integer" resultType="User">
+        select * from user where id=#{uid};
+    </select>
+
+
+
+
+
+
+
+    <insert id="saveUser" parameterType="cn.xhuidong.domain.User">
+        insert into user(username,birthday,sex,address)value(#{username},#{birthday},#{sex},#{address});
+    </insert>
+
+    <update id="updateUser" parameterType="cn.xhuidong.domain.User">
+        update user set username=#{username},address=#{address},sex=#{sex},birthday=#{birthday} where id=#{id};
+    </update>
+    
+    <delete id="deleteUser" parameterType="java.lang.Integer">
+        delete from user where id=#{uid};
+    </delete>
+
+    <select id="findByName" parameterType="java.lang.String" resultType="cn.xhuidong.domain.User">
+        select * from user where username like #{username};
+    </select>
+</mapper>
